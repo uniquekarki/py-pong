@@ -29,18 +29,6 @@ class Bat:
             pass
         self.bat.sety(y)
 
-
-    # def bat_up(self):
-    #     y = self.bat.ycor()
-    #     y += 20
-    #     self.bat.sety(y)
-
-    # def bat_down(self):
-    #     y = self.bat.ycor()
-    #     y -= 20
-    #     self.bat.sety(y)
-
-
 class Ball:
     def __init__(self):
         self.ball = turtle.Turtle()
@@ -110,12 +98,6 @@ if __name__ == '__main__':
     wn.onkey(partial(bat_a.bat_move, 'b'),'s')
     wn.onkey(partial(bat_b.bat_move, 'a'),'Up')
     wn.onkey(partial(bat_b.bat_move, 'b'),'Down')
-
-    # wn.onkey(bat_a.bat_move('a'),'w')
-    # wn.onkey(bat_a.bat_move('b'),'s')
-    # wn.onkey(bat_b.bat_move('a'),'Up')
-    # wn.onkey(bat_b.bat_move('b'),'Down')
-
 
     while True:
         wn.update()
