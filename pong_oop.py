@@ -1,4 +1,5 @@
 import turtle
+from functools import partial
 
 class Bat:
     def __init__(self,side):
@@ -18,6 +19,7 @@ class Bat:
 
     def bat_move(self,input):
         y = self.bat.ycor()
+        print(y)
         print(input)
         if input == 'a':
             y+=20
@@ -25,7 +27,6 @@ class Bat:
             y-=20
         else:
             pass
-        print(y)
         self.bat.sety(y)
 
 
@@ -105,10 +106,15 @@ if __name__ == '__main__':
     ball = Ball()
 
     wn.listen()
-    wn.onkeypress(bat_a.bat_move('a'),'w')
-    wn.onkeypress(bat_a.bat_move('b'),'s')
-    wn.onkeypress(bat_b.bat_move('a'),'Up')
-    wn.onkeypress(bat_b.bat_move('b'),'Down')
+    wn.onkey(partial(bat_a.bat_move, 'a'),'w')
+    wn.onkey(partial(bat_a.bat_move, 'b'),'s')
+    wn.onkey(partial(bat_b.bat_move, 'a'),'Up')
+    wn.onkey(partial(bat_b.bat_move, 'b'),'Down')
+
+    # wn.onkey(bat_a.bat_move('a'),'w')
+    # wn.onkey(bat_a.bat_move('b'),'s')
+    # wn.onkey(bat_b.bat_move('a'),'Up')
+    # wn.onkey(bat_b.bat_move('b'),'Down')
 
 
     while True:
