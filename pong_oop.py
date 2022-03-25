@@ -1,36 +1,35 @@
 import turtle
 from functools import partial
 
-class Bat:
+class Bat(turtle.Turtle):
     def __init__(self,side):
-        self.bat = turtle.Turtle()
+        super().__init__()
         self.bat_init(side)
 
     def bat_init(self, side):
-        self.bat.speed(0)
-        self.bat.shape("square")
-        self.bat.color("white")
-        self.bat.shapesize(stretch_wid=5, stretch_len=1)
-        self.bat.penup()
+        self.speed(0)
+        self.shape("square")
+        self.color("white")
+        self.shapesize(stretch_wid=5, stretch_len=1)
+        self.penup()
         if side == 'a':
-            self.bat.goto(-350,0)
+            self.goto(-350,0)
         else:
-            self.bat.goto(350,0)
+            self.goto(350,0)
 
     def bat_move(self,input):
-        y = self.bat.ycor()
-        print(input)
+        y = self.ycor()
         if input == 'a':
             y+=20
         elif input == 'b':
             y-=20
         else:
             pass
-        self.bat.sety(y)
+        self.sety(y)
 
-class Ball:
+class Ball(turtle.Turtle):
     def __init__(self):
-        self.ball = turtle.Turtle()
+        super().__init__()
         self.ballinit()
         self.count_a = 0
         self.count_b = 0
@@ -38,13 +37,13 @@ class Ball:
         self.display_score()
 
     def ballinit(self):
-        self.ball.speed(0)
-        self.ball.shape("square")
-        self.ball.color("white")
-        self.ball.penup()
-        self.ball.goto(0,0)
-        self.ball.dx = 0.06
-        self.ball.dy = 0.06
+        self.speed(0)
+        self.shape("square")
+        self.color("white")
+        self.penup()
+        self.goto(0,0)
+        self.dx = 0.06
+        self.dy = 0.06
 
     def display_score(self):
         
@@ -58,26 +57,26 @@ class Ball:
 
 
     def move_ball(self):
-        self.ball.setx(self.ball.xcor() + self.ball.dx)
-        self.ball.sety(self.ball.ycor() + self.ball.dy)
+        self.setx(self.xcor() + self.dx)
+        self.sety(self.ycor() + self.dy)
 
-        if self.ball.ycor() > 290:
-            self.ball.sety(290)
-            self.ball.dy *= -1
+        if self.ycor() > 290:
+            self.sety(290)
+            self.dy *= -1
 
-        if self.ball.ycor() < -290:
-            self.ball.sety(-290)
-            self.ball.dy *= -1
+        if self.ycor() < -290:
+            self.sety(-290)
+            self.dy *= -1
         
-        if self.ball.xcor() > 390:
-            self.ball.goto(0,0)
-            self.ball.dx *= -1
+        if self.xcor() > 390:
+            self.goto(0,0)
+            self.dx *= -1
             self.count_a +=1
             self.display_score()
             
-        if self.ball.xcor() < -390:
-            self.ball.goto(0,0)
-            self.ball.dx *= -1
+        if self.xcor() < -390:
+            self.goto(0,0)
+            self.dx *= -1
             self.count_b +=1
             self.display_score()
 
@@ -104,10 +103,10 @@ if __name__ == '__main__':
         ball.move_ball()
 
         # Bat and Ball Collision
-        if (ball.ball.xcor() > 340 and ball.ball.xcor() < 350) and (ball.ball.ycor() < bat_b.bat.ycor() + 40 and ball.ball.ycor() > bat_b.bat.ycor() - 40):
-            ball.ball.setx(340)
-            ball.ball.dx *= -1
+        if (ball.xcor() > 340 and ball.xcor() < 350) and (ball.ycor() < bat_b.ycor() + 40 and ball.ycor() > bat_b.ycor() - 40):
+            ball.setx(340)
+            ball.dx *= -1
 
-        if (ball.ball.xcor() < -340 and ball.ball.xcor() > -350) and (ball.ball.ycor() < bat_a.bat.ycor() + 40 and ball.ball.ycor() > bat_a.bat.ycor() - 40):
-            ball.ball.setx(-340)
-            ball.ball.dx *= -1
+        if (ball.xcor() < -340 and ball.xcor() > -350) and (ball.ycor() < bat_a.ycor() + 40 and ball.ycor() > bat_a.ycor() - 40):
+            ball.setx(-340)
+            ball.dx *= -1
