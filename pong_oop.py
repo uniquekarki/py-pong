@@ -19,7 +19,6 @@ class Bat:
 
     def bat_move(self,input):
         y = self.bat.ycor()
-        print(y)
         print(input)
         if input == 'a':
             y+=20
