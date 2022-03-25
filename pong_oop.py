@@ -3,6 +3,9 @@ import turtle
 class Bat:
     def __init__(self,side):
         self.bat = turtle.Turtle()
+        self.bat_init(side)
+
+    def bat_init(self, side):
         self.bat.speed(0)
         self.bat.shape("square")
         self.bat.color("white")
@@ -13,20 +16,40 @@ class Bat:
         else:
             self.bat.goto(350,0)
 
-    def bat_up(self):
+    def bat_move(self,input):
         y = self.bat.ycor()
-        y += 20
+        print(input)
+        if input == 'a':
+            y+=20
+        elif input == 'b':
+            y-=20
+        else:
+            pass
+        print(y)
         self.bat.sety(y)
 
-    def bat_down(self):
-        y = self.bat.ycor()
-        y -= 20
-        self.bat.sety(y)
+
+    # def bat_up(self):
+    #     y = self.bat.ycor()
+    #     y += 20
+    #     self.bat.sety(y)
+
+    # def bat_down(self):
+    #     y = self.bat.ycor()
+    #     y -= 20
+    #     self.bat.sety(y)
 
 
 class Ball:
     def __init__(self):
         self.ball = turtle.Turtle()
+        self.ballinit()
+        self.count_a = 0
+        self.count_b = 0
+        self.pen = turtle.Turtle()
+        self.display_score()
+
+    def ballinit(self):
         self.ball.speed(0)
         self.ball.shape("square")
         self.ball.color("white")
@@ -35,16 +58,16 @@ class Ball:
         self.ball.dx = 0.06
         self.ball.dy = 0.06
 
-
-        self.count_a = 0
-        self.count_b = 0
-        self.pen = turtle.Turtle()
+    def display_score(self):
+        
         self.pen.speed(0)
         self.pen.color('white')
         self.pen.penup()
         self.pen.hideturtle()
         self.pen.goto(0,260)
-        self.pen.write('Player 1 : {}  |  Player 2 : {}'.format(count_a,count_b), align = 'center', font = ("Courier", 24, "normal"))
+        self.pen.clear()
+        self.pen.write('Player 1 : {}  |  Player 2 : {}'.format(self.count_a,self.count_b), align = 'center', font = ("Courier", 24, "normal"))
+
 
     def move_ball(self):
         self.ball.setx(self.ball.xcor() + self.ball.dx)
@@ -61,16 +84,14 @@ class Ball:
         if self.ball.xcor() > 390:
             self.ball.goto(0,0)
             self.ball.dx *= -1
-            self.count_a += 1
-            self.pen.clear()
-            self.pen.write('Player 1 : {}  |  Player 2 : {}'.format(self.count_a,self.count_b), align = 'center', font = ("Courier", 24, "normal"))
+            self.count_a +=1
+            self.display_score()
             
         if self.ball.xcor() < -390:
             self.ball.goto(0,0)
             self.ball.dx *= -1
             self.count_b +=1
-            self.pen.clear()
-            self.pen.write('Player 1 : {}  |  Player 2 : {}'.format(self.count_a,self.count_b), align = 'center', font = ("Courier", 24, "normal"))
+            self.display_score()
 
 if __name__ == '__main__':
     wn = turtle.Screen()
@@ -78,18 +99,16 @@ if __name__ == '__main__':
     wn.bgcolor("black")
     wn.setup(width = 800, height= 600)
     wn.tracer(0)
-    count_a, count_b = 0,0
-
 
     bat_a = Bat("a")
     bat_b = Bat("b")
     ball = Ball()
 
     wn.listen()
-    wn.onkeypress(bat_a.bat_up,'w')
-    wn.onkeypress(bat_a.bat_down,'s')
-    wn.onkeypress(bat_b.bat_up,'Up')
-    wn.onkeypress(bat_b.bat_down,'Down')
+    wn.onkeypress(bat_a.bat_move('a'),'w')
+    wn.onkeypress(bat_a.bat_move('b'),'s')
+    wn.onkeypress(bat_b.bat_move('a'),'Up')
+    wn.onkeypress(bat_b.bat_move('b'),'Down')
 
 
     while True:
